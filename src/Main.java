@@ -1,5 +1,4 @@
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 public class Main {
 
@@ -49,27 +48,6 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        FastScanner fs = new FastScanner(System.in);
-        StringBuilder out = new StringBuilder();
-
-
-
-        System.out.print(out);
-    }
-
-    // -------- Put logic here --------
-    private static int solve(int n, long x) {
-        return 0; // placeholder
-    }
-
-
-    static int[] readIntArray(FastScanner fs, int n) throws Exception {
-        int[] arr = new int[n];
-        for (int i = 0; i < n; i++) arr[i] = fs.nextInt();
-        return arr;
-    }
-
     static long gcd(long a, long b) {
         while (b != 0) { long t = a % b; a = b; b = t; }
         return a;
@@ -83,5 +61,14 @@ public class Main {
             b >>= 1;
         }
         return r;
+    }
+
+    public static void main(String[] args) throws Exception {
+        FastScanner in = new FastScanner(System.in);
+        PrintWriter out = new PrintWriter(new BufferedOutputStream(System.out));
+
+        // Code
+
+        out.flush();
     }
 }
