@@ -1,3 +1,5 @@
+package graph;
+
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,21 +54,6 @@ public class MessageRoute {
             while ((c = read()) > ' ') sb.append((char)c);
             return sb.toString();
         }
-    }
-
-    static long gcd(long a, long b) {
-        while (b != 0) { long t = a % b; a = b; b = t; }
-        return a;
-    }
-
-    static long modPow(long a, long b, long mod) {
-        long r = 1;
-        while (b > 0) {
-            if ((b & 1) == 1) r = (r * a) % mod;
-            a = (a * a) % mod;
-            b >>= 1;
-        }
-        return r;
     }
 
     public static void main(String[] args) throws Exception {

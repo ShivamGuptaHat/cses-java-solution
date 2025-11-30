@@ -1,3 +1,5 @@
+package graph;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -50,27 +52,6 @@ public class Labyrinth {
             while ((c = read()) > ' ') sb.append((char)c);
             return sb.toString();
         }
-    }
-
-    static int[] readIntArray(FastScanner fs, int n) throws Exception {
-        int[] arr = new int[n];
-        for (int i = 0; i < n; i++) arr[i] = fs.nextInt();
-        return arr;
-    }
-
-    static long gcd(long a, long b) {
-        while (b != 0) { long t = a % b; a = b; b = t; }
-        return a;
-    }
-
-    static long modPow(long a, long b, long mod) {
-        long r = 1;
-        while (b > 0) {
-            if ((b & 1) == 1) r = (r * a) % mod;
-            a = (a * a) % mod;
-            b >>= 1;
-        }
-        return r;
     }
 
     public static void main(String[] args) throws Exception {
@@ -147,6 +128,4 @@ public class Labyrinth {
 
         System.out.println(cpath);
     }
-
-
 }
