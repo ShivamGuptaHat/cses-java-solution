@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+
 public class SlidingWindowSum {
 
     private static final class FastScanner {
