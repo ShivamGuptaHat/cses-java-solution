@@ -3,7 +3,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-// Find Connected components
+// Find connected components
 
 public class BuildingRoads {
 

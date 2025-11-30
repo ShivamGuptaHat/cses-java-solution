@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
-// Shortest path in Grid
+// Shortest path in grid
 
 public class Labyrinth {
 
