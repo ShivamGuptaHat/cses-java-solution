@@ -1,0 +1,35 @@
+### IntelliJ IDEA ###
+.idea/
+*.iml
+out/
+gen/
+modules.xml
+workspace.xml
+tasks.xml
+dataSources/
+dataSources.local.xml
+uiDesigner.xml
+shelf/
+
+### Maven ###
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### Gradle ###
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+### Logs ###
+*.log
+
+### OS Files ###
+.DS_Store
+Thumbs.db
+
+### Java ###
+*.class
+
+### Misc ###
+*.swp
+*.swo
