@@ -85,17 +85,17 @@ public class SlidingWindowSum {
 
         long windowSum = x;
         Deque<Long> deque = new ArrayDeque<>();
-        deque.add((long)x);
+        deque.add(x);
         for (int i = 1; i < k; i++){
             long cur = (a * deque.getLast() + b) % c;
-            deque.add(cur);
+            deque.addLast(cur);
             windowSum += cur;
         }
 
         long xor = windowSum;
         for (int i = k; i < n; i++){
             long cur = (a * deque.getLast() + b) % c;
-            deque.add(cur);
+            deque.addLast(cur);
             windowSum -= deque.removeFirst();
             windowSum += deque.getLast();
             xor ^= windowSum;
