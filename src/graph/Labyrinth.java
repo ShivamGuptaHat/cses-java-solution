@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
-// Shortest path in grid
+// Shortest path in unweighted grid - BFS
 
 public class Labyrinth {
 

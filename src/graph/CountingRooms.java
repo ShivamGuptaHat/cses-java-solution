@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 
-// DFS/BFS
+// No of components - DFS/BFS
 
 public class CountingRooms {
 

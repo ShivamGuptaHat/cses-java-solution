@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-// Find connected components
+// No of min edges req to connect all components - Disjoint Set
 
 public class BuildingRoads {
 

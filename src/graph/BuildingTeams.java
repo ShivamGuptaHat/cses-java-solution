@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-// Bipartite graph
+// Bipartite graph - DFS/BFS
 
 public class BuildingTeams {
 

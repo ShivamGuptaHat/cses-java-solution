@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.*;
 
-// Shorted path in undirected graph
+// Shorted path in undirected unweighted graph - BFS
 
 public class MessageRoute {
 
