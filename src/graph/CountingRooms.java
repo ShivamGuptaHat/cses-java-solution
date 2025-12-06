@@ -1,13 +1,13 @@
 package graph;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.LinkedList;
+import java.util.Queue;
 
-// Bipartite graph
 
-public class BuildingTeams {
+// DFS/BFS
+
+public class CountingRooms {
 
     private static final class FastScanner {
         private final InputStream in;
@@ -70,63 +70,70 @@ public class BuildingTeams {
         return r;
     }
 
+    static int[][] dirs = {{-1, 0}, {1, 0}, {0, - 1}, {0, 1}};
+    static int m, n;
+    static boolean[][] isVisited;
+    static char[][] grid;
+
     public static void main(String[] args) throws Exception {
         FastScanner in = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(new BufferedOutputStream(System.out));
 
-        int n = in.nextInt();
-        int m = in.nextInt();
+        m = in.nextInt();
+        n = in.nextInt();
+        isVisited = new boolean[m][n];
 
-        List<Integer>[] g = new ArrayList[n + 1];
-        for (int i = 1; i <= n; i++){
-            g[i] = new ArrayList<>();
-        }
-
+        grid = new char[m][];
         for (int i = 0; i < m; i++){
-            int u = in.nextInt();
-            int v = in.nextInt();
-            g[u].add(v);
-            g[v].add(u);
+            grid[i] = in.next().toCharArray();
         }
 
-        boolean[] isVisited = new boolean[n + 1];
-        int[] color = new int[n + 1];
-        Arrays.fill(color, -1);
-
-
-        boolean isBipartite = true;
-        for (int u = 1; u <= n && isBipartite; u++){
-            if(!isVisited[u]){
-                isBipartite = dfs(g, u, isVisited, color, 0);
+        int rooms = 0;
+        for (int ui = 0; ui < m; ui++){
+            for (int uj = 0; uj < n; uj++){
+                if(grid[ui][uj] == '.' && !isVisited[ui][uj]){
+                    bfs(ui, uj);
+                    rooms++;
+                }
             }
         }
-
-        if(!isBipartite){
-            out.println("IMPOSSIBLE");
-        }else{
-            for (int i = 1; i <= n; i++){
-                out.print(color[i] + 1 + " ");
-            }
-        }
-
+        out.println(rooms);
         out.flush();
     }
 
 
-    public static boolean dfs(List<Integer>[] g, int u, boolean[] isVisited, int[] color, int colorCode){
-        isVisited[u] = true;
-        color[u] = colorCode;
+    public static void dfs(int ui, int uj){
+        isVisited[ui][uj] = true;
+        for (int[] dir : dirs){
+            int vi = ui + dir[0];
+            int vj = uj + dir[1];
 
-        for (int v : g[u]){
-            if(isVisited[v]){
-                if(color[v] == colorCode) return false;
-            }else{
-                if(!dfs(g, v, isVisited, color, (colorCode + 1) % 2)){
-                    return false;
+            if(vi >= 0 && vi < m && vj >= 0 && vj < n &&
+                    grid[vi][vj] == '.' && !isVisited[vi][vj]){
+                dfs(vi, vj);
+            }
+        }
+    }
+
+    public static void bfs(int ui, int uj){
+        Queue<int[]> queue = new LinkedList<>();
+        queue.add(new int[]{ui, uj});
+        isVisited[ui][uj] = true;
+
+        while(!queue.isEmpty()){
+            ui = queue.peek()[0];
+            uj = queue.remove()[1];
+
+            for (int[] dir : dirs){
+                int vi = ui + dir[0];
+                int vj = uj + dir[1];
+
+                if(vi >= 0 && vi < m && vj >= 0 && vj < n &&
+                        grid[vi][vj] == '.' && !isVisited[vi][vj]){
+                    queue.add(new int[]{vi, vj});
+                    isVisited[vi][vj] = true;
                 }
             }
         }
-
-        return true;
     }
 }
