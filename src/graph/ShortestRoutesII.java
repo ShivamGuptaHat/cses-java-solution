@@ -4,11 +4,11 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.Arrays;
 
-// SSSP - Dijkstra algorithm
+// All pair shortest path - Floyd-Warshall algorithm
 
-public class ShortestRoutesI {
+public class ShortestRoutesII {
 
     private static final class FastScanner {
         private final InputStream in;
@@ -71,61 +71,43 @@ public class ShortestRoutesI {
         return r;
     }
 
-    static class Pair{
-        int node;
-        long distance;
-        public Pair(int node, long distance){
-            this.node = node;
-            this.distance = distance;
-        }
-    }
-
     public static void main(String[] args) throws Exception {
         FastScanner in = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(new BufferedOutputStream(System.out));
 
+        final long INF = (long)1e18;
         int n = in.nextInt();
         int m = in.nextInt();
+        int q = in.nextInt();
 
-
-        List<Pair>[] g = new ArrayList[n + 1];
+        long[][] distance = new long[n + 1][n + 1];
         for (int i = 1; i <= n; i++){
-            g[i] = new ArrayList<>();
+            Arrays.fill(distance[i], INF);
+            distance[i][i] = 0;
         }
 
-        for(int i = 0; i < m; i++){
-            int a = in.nextInt();
-            int b = in.nextInt();
-            int c = in.nextInt();
-            g[a].add(new Pair(b, c));
+        for (int e = 0; e < m; e++){
+            int from = in.nextInt();
+            int to = in.nextInt();
+            int w = in.nextInt();
+
+            distance[from][to] = Math.min(distance[from][to], w);
+            distance[to][from] = distance[from][to];
         }
 
-        // Dijkstra's Algo
-        PriorityQueue<Pair> pq = new PriorityQueue<>(Comparator.comparingLong(p -> p.distance));
-        long[] distance = new long[n + 1];
-
-        Arrays.fill(distance, Long.MAX_VALUE);
-        pq.offer(new Pair(1, 0));
-        distance[1] = 0;
-
-        while(!pq.isEmpty()){
-            Pair u = pq.poll();
-            if(u.distance != distance[u.node])
-                continue;
-
-            for (Pair v : g[u.node]){
-                long dist = u.distance + v.distance;
-                if(dist < distance[v.node]){
-                    distance[v.node] = dist;
-                    pq.offer(new Pair(v.node, dist));
+        for (int k = 1; k <= n; k++){
+            for (int u = 1; u <= n; u++){
+                for (int v = 1; v <= n; v++){
+                    distance[u][v] = Math.min(distance[u][v], distance[u][k] + distance[k][v]);
                 }
             }
         }
 
-        for (int i = 1; i <= n; i++){
-            out.print(distance[i] + " ");
+        for (int i = 0; i < q; i++){
+            int from = in.nextInt();
+            int to = in.nextInt();
+            out.println(distance[from][to] != INF ? distance[from][to] : -1);
         }
-
         out.flush();
     }
 }
