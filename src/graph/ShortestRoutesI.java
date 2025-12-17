@@ -1,6 +1,14 @@
-import java.io.*;
+package graph;
 
-public class Main {
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.util.*;
+
+// SSSP - Dijkstra's Algo
+
+public class ShortestRoutesI {
 
     private static final class FastScanner {
         private final InputStream in;
@@ -63,10 +71,60 @@ public class Main {
         return r;
     }
 
+    static class Pair{
+        int node;
+        long distance;
+        public Pair(int node, long distance){
+            this.node = node;
+            this.distance = distance;
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         FastScanner in = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(new BufferedOutputStream(System.out));
 
+        int n = in.nextInt();
+        int m = in.nextInt();
+
+
+        List<Pair>[] g = new ArrayList[n + 1];
+        for (int i = 1; i <= n; i++){
+            g[i] = new ArrayList<>();
+        }
+
+        for(int i = 0; i < m; i++){
+            int a = in.nextInt();
+            int b = in.nextInt();
+            int c = in.nextInt();
+            g[a].add(new Pair(b, c));
+        }
+
+        // Dijkstra's Algo
+        PriorityQueue<Pair> pq = new PriorityQueue<>(Comparator.comparingLong(p -> p.distance));
+        long[] distance = new long[n + 1];
+
+        Arrays.fill(distance, Long.MAX_VALUE);
+        pq.offer(new Pair(1, 0));
+        distance[1] = 0;
+
+        while(!pq.isEmpty()){
+            Pair u = pq.poll();
+            if(u.distance != distance[u.node])
+                continue;
+
+            for (Pair v : g[u.node]){
+                long dist = u.distance + v.distance;
+                if(dist < distance[v.node]){
+                    distance[v.node] = dist;
+                    pq.offer(new Pair(v.node, dist));
+                }
+            }
+        }
+
+        for (int i = 1; i <= n; i++){
+            out.print(distance[i] + " ");
+        }
 
         out.flush();
     }
