@@ -1,0 +1,104 @@
+# Algorithms Used (CSES – Java)
+
+### DFS (Connected Components / Grid)
+```java
+void dfs(int u) {
+    visited[u] = true;
+    for (int v : graph[u]) {
+        if (!visited[v]) {
+            dfs(v);
+        }
+    }
+}
+```
+
+### BFS (Unweighted Shortest Path) 
+```java
+Queue<Integer> q = new LinkedList<>();
+visited[src] = true;
+q.add(src);
+
+while (!q.isEmpty()) {
+    int u = q.poll();
+    for (int v : graph[u]) {
+        if (!visited[v]) {
+            visited[v] = true;
+            q.add(v);
+        }
+    }
+}
+```
+
+### Dijkstra (Shortest Path – Non-negative Weights)
+```java
+PriorityQueue<long[]> pq =
+        new PriorityQueue<>(Comparator.comparingLong(a -> a[1]));
+
+dist[src] = 0;
+pq.add(new long[]{src, 0});
+
+while (!pq.isEmpty()) {
+    long[] cur = pq.poll();
+    int u = (int) cur[0];
+    long d = cur[1];
+    
+    if (d != dist[u]) continue;
+
+    for (long[] e : graph[u]) {
+        int v = (int) e[0];
+        long w = e[1];
+        if (dist[u] + w < dist[v]) {
+            dist[v] = dist[u] + w;
+            pq.add(new long[]{v, dist[v]});
+        }
+    }
+}
+```
+
+### Bellman-Ford
+```java 
+dist[src] = 0;
+
+for (int i = 1; i <= n - 1; i++) {
+    for (Edge e : edges) {
+        if (dist[e.u] != INF && dist[e.u] + e.w < dist[e.v]) {
+            dist[e.v] = dist[e.u] + e.w;
+        }
+    }
+}
+```
+
+### Union-Find (Disjoint Set Union)
+```java
+int find(int x) {
+    if (parent[x] != x) {
+        parent[x] = find(parent[x]);
+    }
+    return parent[x];
+}
+
+void union(int a, int b) {
+    a = find(a);
+    b = find(b);
+    if (a == b) return;
+
+    if (rank[a] < rank[b]) {
+        parent[a] = b;
+    } else if (rank[a] > rank[b]) {
+        parent[b] = a;
+    } else {
+        parent[b] = a;
+        rank[a]++;
+    }
+}
+```
+
+
+
+
+
+
+
+
+
+
