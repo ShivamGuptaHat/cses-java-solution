@@ -2,7 +2,7 @@
 
 ## Attempt 1:
 ### Graphs
-- [ ] High Score (CSES)
+- [ ] High Score
     - Issue: Negative cycle detection + reachability
     
     
