@@ -94,14 +94,19 @@ for (int k = 1; k <= n; k++) {
 ```
 
 ### Bellman-Ford
-```java 
-dist[src] = 0;
-
+```java
 for (int i = 1; i <= n - 1; i++) {
     for (Edge e : edges) {
         if (dist[e.u] != INF && dist[e.u] + e.w < dist[e.v]) {
             dist[e.v] = dist[e.u] + e.w;
         }
+    }
+}
+
+// Detect negative cycles
+for (Edge e : edges) {
+    if (dist[e.u] != NEG_INF && dist[e.u] + e.w < dist[e.v]) {
+        inNegCycle[e.v] = true;
     }
 }
 ```
