@@ -1,6 +1,6 @@
 # Algorithms Used (CSES – Java)
 
-### DFS (Connected Components / Grid)
+### DFS 
 ```java
 void dfs(int u) {
     visited[u] = true;
@@ -12,7 +12,7 @@ void dfs(int u) {
 }
 ```
 
-### BFS (Unweighted Shortest Path) 
+### BFS 
 ```java
 Queue<Integer> q = new LinkedList<>();
 visited[src] = true;
@@ -29,7 +29,32 @@ while (!q.isEmpty()) {
 }
 ```
 
-### Dijkstra (Shortest Path – Non-negative Weights)
+### Union-Find 
+```java
+int find(int x) {
+    if (parent[x] != x) {
+        parent[x] = find(parent[x]);
+    }
+    return parent[x];
+}
+
+void union(int a, int b) {
+    a = find(a);
+    b = find(b);
+    if (a == b) return;
+
+    if (rank[a] < rank[b]) {
+        parent[a] = b;
+    } else if (rank[a] > rank[b]) {
+        parent[b] = a;
+    } else {
+        parent[b] = a;
+        rank[a]++;
+    }
+}
+```
+
+### Dijkstra (SSSP – Non-negative Weights)
 ```java
 PriorityQueue<long[]> pq =
         new PriorityQueue<>(Comparator.comparingLong(a -> a[1]));
@@ -55,6 +80,19 @@ while (!pq.isEmpty()) {
 }
 ```
 
+### Floyd-Warshall (All-Pairs Shortest Path)
+```java
+for (int k = 1; k <= n; k++) {
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            if (dist[i][k] + dist[k][j] < dist[i][j]) {
+                dist[i][j] = dist[i][k] + dist[k][j];
+            }
+        }
+    }
+}
+```
+
 ### Bellman-Ford
 ```java 
 dist[src] = 0;
@@ -64,31 +102,6 @@ for (int i = 1; i <= n - 1; i++) {
         if (dist[e.u] != INF && dist[e.u] + e.w < dist[e.v]) {
             dist[e.v] = dist[e.u] + e.w;
         }
-    }
-}
-```
-
-### Union-Find (Disjoint Set Union)
-```java
-int find(int x) {
-    if (parent[x] != x) {
-        parent[x] = find(parent[x]);
-    }
-    return parent[x];
-}
-
-void union(int a, int b) {
-    a = find(a);
-    b = find(b);
-    if (a == b) return;
-
-    if (rank[a] < rank[b]) {
-        parent[a] = b;
-    } else if (rank[a] > rank[b]) {
-        parent[b] = a;
-    } else {
-        parent[b] = a;
-        rank[a]++;
     }
 }
 ```
