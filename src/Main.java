@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.*;
 
 public class Main {
 
@@ -63,10 +64,9 @@ public class Main {
         return r;
     }
 
+    static FastScanner in = new FastScanner(System.in);
+    static PrintWriter out = new PrintWriter(new BufferedOutputStream(System.out));
     public static void main(String[] args) throws Exception {
-        FastScanner in = new FastScanner(System.in);
-        PrintWriter out = new PrintWriter(new BufferedOutputStream(System.out));
-
 
         out.flush();
     }
