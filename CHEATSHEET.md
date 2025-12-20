@@ -1,21 +1,12 @@
-### INF Constants
-
-```java
-long INF = (long)1e18;
-long NEG_INF = (long)-1e18;
-```
-
-
-### Edge
-```java
-class Edge {
-        int u, v;
-        long w;
-        Edge(int u, int v, long w) {
-            this.u = u;
-            this.v = v;
-            this.w = w;
-        }
-    }
-```
-
+### Graph
+- **Counting Rooms** — Connected Components (DFS / BFS)
+- **Building Roads** — Connected Components
+- **Labyrinth** — Shortest Path in Unweighted Grid (BFS)
+- **Message Route** — Shortest Path in Undirected Unweighted Graph (BFS)
+- **Building Teams** — Bipartite Graph Check
+- **Round Trip** — Cycle Detection in Undirected Graph (DFS)
+- **Monsters** — Multi-source BFS + Escape Path
+- **Shortest Routes I** — SSSP | Dijkstra | Non-negative Weights
+- **High Score** — SSSP | Directed Graph | Negative Cycle | Bellman–Ford
+- **Flight Discount** — SSSP | Double-State Dijkstra
+- **Shortest Routes II** — APSP | Floyd–Warshall

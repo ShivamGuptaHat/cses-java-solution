@@ -3,7 +3,9 @@
 ## Attempt 1:
 ### Graphs
 - [ ] High Score
-    - Issue: Negative cycle detection + reachability
+  - Bellman-Ford
+- [ ] Flight Discount
+  - Double state dijkstra
     
     
 ### DP
