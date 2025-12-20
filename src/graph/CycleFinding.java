@@ -1,7 +1,12 @@
-import java.io.*;
+package graph;
+
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.*;
 
-public class Main {
+public class CycleFinding {
 
     private static final class FastScanner {
         private final InputStream in;
@@ -64,11 +69,83 @@ public class Main {
         return r;
     }
 
+    static class Edge{
+        int from, to;
+        long cost;
+        public Edge(int from, int to, long cost){
+            this.from = from;
+            this.to = to;
+            this.cost = cost;
+        }
+    }
+
     static FastScanner in = new FastScanner(System.in);
     static PrintWriter out = new PrintWriter(new BufferedOutputStream(System.out));
     static final long INF = (long)1e18;
     public static void main(String[] args) throws Exception {
+        /*
+            1. Apply Bellman-Ford and detect negative node
+            2. Go n step backward to land in cycle
+            3. Fetch path
+         */
+        int n = in.nextInt();
+        int m = in.nextInt();
+        List<Edge> edgeList = new ArrayList<>();
+        for (int i = 0; i < m; i++){
+            int from = in.nextInt();
+            int to = in.nextInt();
+            long cost = in.nextLong();
 
+            edgeList.add(new Edge(from, to, cost));
+        }
+
+
+        int x = -1;
+
+        long[] distance = new long[n + 1];
+        int[] parent = new int[n + 1];
+        Arrays.fill(distance, INF);
+        distance[1] = 0;
+
+
+        for (int r = 1; r <= n; r++){
+            x = -1;
+            for (Edge e : edgeList){
+                int u = e.from;
+                int v = e.to;
+                long w = e.cost;
+                if(distance[u] + w < distance[v]){
+                    distance[v] = distance[u] + w;
+                    parent[v] = u;
+                    x = v;
+                }
+            }
+        }
+
+        if(x == -1){
+            out.println("NO");
+            out.flush();
+            return;
+        }
+
+        // Move backward to land in cycle
+        for (int i = 1; i <= n; i++){
+            x = parent[x];
+        }
+
+        out.println("YES");
+        List<Integer> cycle = new ArrayList<>();
+        int start = x;
+        do {
+            cycle.add(x);
+            x = parent[x];
+        }while(x != start);
+        cycle.add(x);
+
+        Collections.reverse(cycle);
+        for (int c : cycle){
+            out.print(c + " ");
+        }
         out.flush();
     }
 }
