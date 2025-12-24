@@ -64,7 +64,7 @@
 - [x] Counting Rooms
 - [x] Labyrinth
 - [x] Building Roads
-- [ ] Message Route
+- [x] Message Route
 - [x] Building Teams
 - [x] Round Trip
 - [x] Shortest Routes I
