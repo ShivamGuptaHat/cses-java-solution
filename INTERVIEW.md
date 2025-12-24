@@ -60,7 +60,7 @@
 - [ ] Projects
 - [ ] Elevator Rides
 
-## Graphs (BFS / DFS / Shortest Paths / DAG / SCC)
+## Graphs
 - [ ] Counting Rooms
 - [ ] Labyrinth
 - [ ] Building Roads
