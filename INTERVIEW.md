@@ -61,19 +61,19 @@
 - [ ] Elevator Rides
 
 ## Graphs
-- [ ] Counting Rooms
-- [ ] Labyrinth
-- [ ] Building Roads
+- [x] Counting Rooms
+- [x] Labyrinth
+- [x] Building Roads
 - [ ] Message Route
-- [ ] Building Teams
-- [ ] Round Trip
-- [ ] Shortest Routes I
-- [ ] Shortest Routes II
-- [ ] High Score
-- [ ] Flight Discount
+- [x] Building Teams
+- [x] Round Trip
+- [x] Shortest Routes I
+- [x] Shortest Routes II
+- [x] High Score
+- [x] Flight Discount
 - [ ] Course Schedule
-- [ ] Round Trip II
-- [ ] Cycle Finding
+- [x] Round Trip II
+- [x] Cycle Finding
 - [ ] Planets and Kingdoms
 
 ## Trees
@@ -147,10 +147,26 @@
 - [ ] Grid Path Construction
 - [ ] Filling Trominos
 
+## Advanced Graph
+- [ ] Nearest Shops
+- [ ] Flight Route Requests
+- [ ] Forbidden Cities
+- [ ] Course Schedule II
+- [ ] Acyclic Graph Edges
+- [ ] New Flight Routes
+- [ ] Strongly Connected Edges
+- [ ] Critical Cities
+- [ ] MST Edge Check
+- [ ] Network Breakdown
+- [ ] Tree Coin Collecting I
+- [ ] Tree Coin Collecting II
+- [ ] Tree Isomorphism I
+- [ ] Graph Coloring
+- [ ] Split into Two Paths
+
+
 ## Optional / Nice-to-have
 - [ ] Sliding Window Median
 - [ ] De Bruijn Sequence
-- [ ] Tree Isomorphism I
 - [ ] Tree Isomorphism II
-- [ ] MST Edge Check
 - [ ] Network Renovation
