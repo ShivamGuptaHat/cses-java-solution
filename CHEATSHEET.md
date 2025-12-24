@@ -4,13 +4,15 @@
 - **Labyrinth** — Shortest Path in Unweighted Grid (BFS)
 - **Message Route** — Shortest Path in Undirected Unweighted Graph (BFS)
 - **Building Teams** — Bipartite Graph Check
-- **Round Trip** — Cycle Detection in Undirected Graph (DFS)
+- **Round Trip** — Undirected Graph | Cycle Detection
+- **Round Trip II** - Directed Graph | Cycle Detection
 - **Monsters** — Multi-source BFS + Escape Path
 - **Shortest Routes I** — SSSP | Dijkstra | Non-negative Weights
 - **High Score** — SSSP | Directed Graph | Negative Cycle | Bellman–Ford
 - **Cycle Finding** — Negative Cycle Path | Bellman–Ford
 - **Flight Discount** — SSSP | Double-State Dijkstra
 - **Shortest Routes II** — APSP | Floyd–Warshall
+- **Flight Routes** - Multi-Dijkstra
 
 
 

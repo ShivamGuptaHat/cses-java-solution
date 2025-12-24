@@ -3,11 +3,9 @@
 ## Attempt 1:
 ### Graphs
 - [ ] High Score
-  - Bellman-Ford
 - [ ] Flight Discount
-  - Double state dijkstra
 - [ ] Cycle Finding
-  - Bellman-Ford
+- [ ] Flight Routes
     
     
 ### DP
