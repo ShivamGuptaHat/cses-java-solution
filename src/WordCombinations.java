@@ -1,7 +1,9 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
 
-public class Main {
+public class WordCombinations {
 
     private static final class FastScanner {
         private final InputStream in;
@@ -68,8 +70,52 @@ public class Main {
     static PrintWriter out = new PrintWriter(new BufferedOutputStream(System.out));
     static final long INF = (long)1e18;
     static final int MOD = 1_000_000_007;
-    public static void main(String[] args) throws Exception {
 
+    static class TrieNode {
+        TrieNode[] next = new TrieNode[26];
+        boolean isEnd;
+    }
+
+    static TrieNode root = new TrieNode();
+
+    static void insert(String word) {
+        TrieNode node = root;
+        for (char c : word.toCharArray()) {
+            int idx = c - 'a';
+            if (node.next[idx] == null) {
+                node.next[idx] = new TrieNode();
+            }
+            node = node.next[idx];
+        }
+        node.isEnd = true;
+    }
+
+    public static void main(String[] args) throws Exception {
+        String s = in.next();
+        int n = s.length();
+
+        int k = in.nextInt();
+        for (int i = 0; i < k; i++) {
+            insert(in.next());
+        }
+
+        long[] dp = new long[n + 1];
+        dp[n] = 1;
+        // DP from right to left
+        for (int i = n - 1; i >= 0; i--) {
+            TrieNode node = root;
+            for (int j = i; j < n; j++) {
+                int idx = s.charAt(j) - 'a';
+                if (node.next[idx] == null) break;
+
+                node = node.next[idx];
+                if (node.isEnd) {
+                    dp[i] = (dp[i] + dp[j + 1]) % MOD;
+                }
+            }
+        }
+
+        out.println(dp[0]);
         out.flush();
     }
 }
