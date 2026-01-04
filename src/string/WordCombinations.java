@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 
+// Trie + DP
+
 public class WordCombinations {
 
     private static final class FastScanner {

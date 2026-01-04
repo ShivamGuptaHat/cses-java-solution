@@ -5,6 +5,28 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 
+// KMP algorithm
+
+/*
+LPS[i] = length of the longest proper prefix of pattern[0..i] which is also a suffix of pattern[0..i]
+Prefix is proper (cannot be the whole substring)
+
+Eg:
+Given string:
+"abc"
+
+All prefixes:
+"a"
+"ab"
+"abc"
+
+Proper prefixes:
+"a"
+"ab"
+
+❌ "abc" is NOT a proper prefix.
+ */
+
 public class StringMatching {
 
     private static final class FastScanner {
@@ -72,6 +94,7 @@ public class StringMatching {
     static PrintWriter out = new PrintWriter(new BufferedOutputStream(System.out));
     static final long INF = (long)1e18;
     static final int MOD = 1_000_000_007;
+
     public static void main(String[] args) throws Exception {
         String text = in.next();
         String pattern = in.next();
@@ -107,6 +130,9 @@ public class StringMatching {
     }
 
     // Builds LPS (Longest Prefix Suffix) array
+    /*
+     - Overlap prefix and suffix will count
+     */
     static int[] buildLPS(String pattern) {
         int m = pattern.length();
         int[] lps = new int[m];
@@ -130,4 +156,6 @@ public class StringMatching {
         }
         return lps;
     }
+
+
 }
