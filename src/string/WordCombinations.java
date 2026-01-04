@@ -1,9 +1,11 @@
+package string;
+
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 
-public class StringMatching {
+public class WordCombinations {
 
     private static final class FastScanner {
         private final InputStream in;
@@ -70,62 +72,52 @@ public class StringMatching {
     static PrintWriter out = new PrintWriter(new BufferedOutputStream(System.out));
     static final long INF = (long)1e18;
     static final int MOD = 1_000_000_007;
-    public static void main(String[] args) throws Exception {
-        String text = in.next();
-        String pattern = in.next();
 
-        int n = text.length();
-        int m = pattern.length();
-
-        int[] lps = buildLPS(pattern);
-        int count = 0;
-
-        int i = 0, j = 0;
-
-        while (i < n) {
-            if (text.charAt(i) == pattern.charAt(j)) {
-                i++;
-                j++;
-
-                if (j == m) {
-                    count++;
-                    j = lps[j - 1]; // allow overlapping
-                }
-            } else {
-                if (j != 0) {
-                    j = lps[j - 1];
-                } else {
-                    i++;
-                }
-            }
-        }
-
-        out.println(count);
-        out.flush();
+    static class TrieNode {
+        TrieNode[] next = new TrieNode[26];
+        boolean isEnd;
     }
 
-    // Builds LPS (Longest Prefix Suffix) array
-    static int[] buildLPS(String pattern) {
-        int m = pattern.length();
-        int[] lps = new int[m];
+    static TrieNode root = new TrieNode();
 
-        int len = 0;
-        int i = 1;
+    static void insert(String word) {
+        TrieNode node = root;
+        for (char c : word.toCharArray()) {
+            int idx = c - 'a';
+            if (node.next[idx] == null) {
+                node.next[idx] = new TrieNode();
+            }
+            node = node.next[idx];
+        }
+        node.isEnd = true;
+    }
 
-        while (i < m) {
-            if (pattern.charAt(i) == pattern.charAt(len)) {
-                len++;
-                lps[i] = len;
-                i++;
-            } else {
-                if (len != 0) {
-                    len = lps[len - 1];
-                } else {
-                    lps[i] = 0;
-                    i++;
+    public static void main(String[] args) throws Exception {
+        String s = in.next();
+        int n = s.length();
+
+        int k = in.nextInt();
+        for (int i = 0; i < k; i++) {
+            insert(in.next());
+        }
+
+        long[] dp = new long[n + 1];
+        dp[n] = 1;
+        // DP from right to left
+        for (int i = n - 1; i >= 0; i--) {
+            TrieNode node = root;
+            for (int j = i; j < n; j++) {
+                int idx = s.charAt(j) - 'a';
+                if (node.next[idx] == null) break;
+
+                node = node.next[idx];
+                if (node.isEnd) {
+                    dp[i] = (dp[i] + dp[j + 1]) % MOD;
                 }
             }
         }
-        return lps;
+
+        out.println(dp[0]);
+        out.flush();
     }
 }
