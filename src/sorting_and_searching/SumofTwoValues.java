@@ -4,11 +4,10 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-// Sweep line algorithm
-
-public class RestaurantCustomers {
+public class SumofTwoValues {
 
     private static final class FastScanner {
         private final InputStream in;
@@ -75,40 +74,32 @@ public class RestaurantCustomers {
     static PrintWriter out = new PrintWriter(new BufferedOutputStream(System.out));
     static final long INF = (long)1e18;
     static final int MOD = 1_000_000_007;
-
     public static void main(String[] args) throws Exception {
         int n = in.nextInt();
+        int target = in.nextInt();
 
-        // Each event: [time, delta]
-        // delta = +1 → arrival
-        // delta = -1 → departure
-        List<int[]> events = new ArrayList<>();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = in.nextInt();
+        }
+
+        Map<Integer, Integer> valueToIndex = new HashMap<>();
 
         for (int i = 0; i < n; i++) {
-            int arrival = in.nextInt();
-            int departure = in.nextInt();
+            int needed = target - arr[i];
 
-            events.add(new int[]{arrival, +1});
-            events.add(new int[]{departure, -1});
-        }
-
-        // Sort by time, and if same time → departure first
-        Collections.sort(events, (a, b) -> {
-            if (a[0] == b[0]) {
-                return a[1] - b[1]; // -1 before +1
+            Integer idx = valueToIndex.get(needed);
+            if (idx != null) {
+                out.println(idx + " " + (i + 1));
+                out.flush();
+                return;
             }
-            return a[0] - b[0];
-        });
 
-        int currentCustomers = 0;
-        int maxCustomers = 0;
-
-        for (int[] event : events) {
-            currentCustomers += event[1];
-            maxCustomers = Math.max(maxCustomers, currentCustomers);
+            // store only first occurrence
+            valueToIndex.putIfAbsent(arr[i], i + 1);
         }
 
-        out.println(maxCustomers);
+        out.println("IMPOSSIBLE");
         out.flush();
     }
 
