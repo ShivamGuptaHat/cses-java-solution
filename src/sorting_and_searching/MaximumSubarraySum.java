@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 
+// Kadane’s Algorithm
+
 public class MaximumSubarraySum {
 
     private static final class FastScanner {
@@ -74,21 +76,21 @@ public class MaximumSubarraySum {
     static final int MOD = 1_000_000_007;
     public static void main(String[] args) throws Exception {
         int n = in.nextInt();
-        int[] A = new int[n];
-        for (int i = 0; i < n; i++){
-            A[i] = in.nextInt();
+        int[] arr = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = in.nextInt();
         }
 
-        long maxSum = A[0], curSum = A[0];
-        for (int i = 1; i < n; i++){
-            curSum += A[i];
-            if(curSum < A[i]){
-                curSum = A[i];
-            }
-            maxSum = Math.max(maxSum, curSum);
+        long currentSum = arr[0];
+        long maxSum = arr[0];
+
+        for (int i = 1; i < n; i++) {
+            currentSum = Math.max(arr[i], currentSum + arr[i]);
+            maxSum = Math.max(maxSum, currentSum);
         }
 
-        out.print(maxSum);
+        out.println(maxSum);
         out.flush();
     }
 }
