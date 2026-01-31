@@ -69,7 +69,11 @@ public class Main {
     static final long INF = (long)1e18;
     static final int MOD = 1_000_000_007;
     public static void main(String[] args) throws Exception {
-
+        solve();
         out.flush();
+    }
+
+    public static void solve() throws Exception{
+        // start
     }
 }

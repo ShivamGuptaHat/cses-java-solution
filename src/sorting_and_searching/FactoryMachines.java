@@ -1,4 +1,4 @@
-//package sorting_and_searching;
+package sorting_and_searching;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -79,11 +79,6 @@ public class FactoryMachines {
     }
 
     public static void solve() throws Exception {
-        /*
-            1. Sort
-            2. binary search
-         */
-
         int n = in.nextInt();
         int p = in.nextInt();
 
