@@ -169,6 +169,17 @@ public class ConcertTickets {
         return l - 1;
     }
 
+    static int lowerBound(int[] a, int x) {
+        int l = 0, r = a.length; // [l, r)
+        while (l < r) {
+            int mid = (l + r) >>> 1;
+            if (a[mid] < x) l = mid + 1;
+            else r = mid;
+        }
+        return l;
+    }
+
+
     public static void solveUsingUnionFind() throws Exception{
         int n = in.nextInt();
         int m = in.nextInt();
