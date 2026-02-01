@@ -4,9 +4,10 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.Stack;
+import java.util.HashSet;
+import java.util.Set;
 
-public class NearestSmallerValues {
+public class SubarraySumsI {
 
     private static final class FastScanner {
         private final InputStream in;
@@ -80,31 +81,24 @@ public class NearestSmallerValues {
 
     public static void solve() throws Exception{
         int n = in.nextInt();
+        long target = in.nextInt();
+
         int[] nums = new int[n];
         for (int i = 0; i < n; i++){
             nums[i] = in.nextInt();
         }
 
-        Stack<Integer> stack = new Stack<>();
-
-        StringBuilder ans = new StringBuilder();
-        for (int i = 0; i < n; i++){
-            if(stack.isEmpty()){
-                ans.append("0 ");
-            }else{
-                while(!stack.isEmpty() && nums[stack.peek()] >= nums[i]){
-                    stack.pop();
-                }
-
-                if(stack.isEmpty()){
-                    ans.append("0 ");
-                }else{
-                    ans.append((stack.peek() + 1)).append(" ");
-                }
+        Set<Long> set = new HashSet<>();
+        set.add(0l);
+        long sum = 0l;
+        int count = 0;
+        for (int j = 0; j < n; j++){
+            sum += nums[j];
+            set.add(sum);
+            if(set.contains(sum - target)){
+                count++;
             }
-            stack.push(i);
         }
-
-        out.print(ans.toString().trim());
+        out.print(count);
     }
 }
