@@ -117,17 +117,6 @@ public class MaximumSubarraySumII {
             ans = Math.max(ans, prefix[r] - prefix[dq.peekFirst()]);
         }
 
-
-        for (int r = a; r <= n; r++){
-            int addIdx = r - a;
-            while(!dq.isEmpty() && prefix[dq.peekLast()] >= prefix[addIdx]){
-                dq.pollLast();
-            }
-            dq.addLast(addIdx);
-
-            while(!dq.isEmpty() && dq.peekFirst())
-        }
-
         out.println(ans);
     }
 }
