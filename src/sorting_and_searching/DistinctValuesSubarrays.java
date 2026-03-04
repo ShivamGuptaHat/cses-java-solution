@@ -1,13 +1,13 @@
-package sorting_and_searching;
+//package sorting_and_searching;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
-public class DistinctValuesSubarrays2 {
+public class DistinctValuesSubarrays {
 
     private static final class FastScanner {
         private final InputStream in;
@@ -81,23 +81,21 @@ public class DistinctValuesSubarrays2 {
 
     public static void solve() throws Exception{
         int n = in.nextInt();
-        int k = in.nextInt();
+        int[] A = new int[n];
 
-        int[] nums = new int[n];
         for (int i = 0; i < n; i++){
-            nums[i] = in.nextInt();
+            A[i] = in.nextInt();
         }
 
+        Set<Integer> set = new HashSet<>();
         long cnt = 0;
-        Map<Integer, Integer> freq = new HashMap<>();
         for (int s = 0, e = 0; e < n; e++){
-            freq.put(nums[e], freq.getOrDefault(nums[e], 0) + 1);
-            while(freq.size() > k){
-                freq.put(nums[s], freq.get(nums[s]) - 1);
-                if(freq.get(nums[s]) == 0) freq.remove(nums[s]);
+            while(s < e && set.contains(A[e])){
+                set.remove(A[s]);
                 s++;
             }
 
+            set.add(A[e]);
             cnt += (e - s + 1);
         }
 
