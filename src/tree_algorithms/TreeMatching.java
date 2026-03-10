@@ -1,4 +1,4 @@
-//package tree_algorithms;
+package tree_algorithms;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
