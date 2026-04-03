@@ -1,7 +1,13 @@
-import java.io.*;
-import java.util.*;
+//package tree_algorithms;
 
-public class Main {
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+public class CompanyQueriesII {
 
     private static final class FastScanner {
         private final InputStream in;
@@ -73,7 +79,84 @@ public class Main {
         out.flush();
     }
 
-    public static void solve() throws Exception{
-        // start
+    static int[][] up;
+    static int LOG = 20;
+    static List<Integer>[] tree;
+    static int[] depth;
+
+    public static void solve() throws Exception {
+        int n = in.nextInt();
+        int q = in.nextInt();
+
+        tree = new ArrayList[n + 1];
+        depth = new int[n + 1];
+        up = new int[n + 1][LOG];
+
+        for (int i = 1; i <= n; i++){
+            tree[i] = new ArrayList<>();
+        }
+
+        for (int a = 2; a <= n; a++){
+            int b = in.nextInt();
+            tree[a].add(b);
+            tree[b].add(a);
+        }
+
+        dfs(1, 0);
+
+        StringBuilder res = new StringBuilder();
+        while(q-- > 0){
+            int a = in.nextInt();
+            int b = in.nextInt();
+
+            res.append(lca(a, b)).append('\n');
+        }
+
+        out.println(res);
+
+    }
+
+    public static void dfs(int node, int parent){
+        up[node][0] = parent;
+
+        for (int j = 1; j < LOG; j++){
+            if (up[node][j - 1] != 0) {
+                up[node][j] = up[up[node][j - 1]][j - 1];
+            }
+        }
+
+        for (int child : tree[node]){
+            if(child != parent){
+                depth[child] = depth[node] + 1;
+                dfs(child, node);
+            }
+        }
+    }
+
+    public static int lca(int a, int b){
+        if(depth[a] < depth[b]){
+            int temp = a;
+            a = b;
+            b = temp;
+        }
+
+
+        int diff = depth[a] - depth[b];
+        for (int j = 0; j < LOG; j++){
+            if((diff & (1 << j)) > 0){
+                a = up[a][j];
+            }
+        }
+
+        if(a == b) return a;
+
+        for (int j = LOG - 1; j >= 0; j--){
+            if(up[a][j] != up[b][j]){
+                a = up[a][j];
+                b = up[b][j];
+            }
+        }
+
+        return up[a][0];
     }
 }

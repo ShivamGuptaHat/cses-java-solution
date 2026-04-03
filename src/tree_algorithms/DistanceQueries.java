@@ -1,7 +1,13 @@
-import java.io.*;
-import java.util.*;
+//package tree_algorithms;
 
-public class Main {
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+public class DistanceQueries {
 
     private static final class FastScanner {
         private final InputStream in;
@@ -73,7 +79,86 @@ public class Main {
         out.flush();
     }
 
+
+    static int[] depth;
+    static int[][] up;
+    static List<Integer>[] tree;
+    static int LOG = 20;
+
+
     public static void solve() throws Exception{
-        // start
+        int n = in.nextInt();
+        int q = in.nextInt();
+
+        tree = new ArrayList[n + 1];
+        for (int i = 1; i <= n; i++){
+            tree[i] = new ArrayList<>();
+        }
+
+        for (int e = 1; e <= n - 1; e++){
+            int a = in.nextInt();
+            int b = in.nextInt();
+            tree[a].add(b);
+            tree[b].add(a);
+        }
+
+        depth = new int[n + 1];
+        up = new int[n + 1][LOG];
+        dfs(1, 0);
+
+        while(q-- > 0){
+            int a = in.nextInt();
+            int b = in.nextInt();
+            int ancestor = lca(a, b);
+
+            int distance = Math.abs(depth[ancestor] - depth[a]) + Math.abs(depth[ancestor] - depth[b]);
+            out.println(distance);
+
+        }
+
+
+
+
+    }
+
+    public static int lca(int a, int b){
+        if(depth[a] < depth[b]){
+            int temp = a;
+            a = b;
+            b = temp;
+        }
+
+        int diff = depth[a] - depth[b];
+        for (int i = 0; i < LOG; i++){
+            if((diff & (1 << i)) > 0){
+                a = up[a][i];
+            }
+        }
+
+        if(a == b) return a;
+        for (int i = LOG - 1; i >= 0; i--){
+            if(up[a][i] != up[b][i]){
+                a = up[a][i];
+                b = up[b][i];
+            }
+        }
+
+        return up[a][0];
+
+    }
+
+    public static void dfs(int node, int parent){
+        up[node][0] = parent;
+        for (int i = 1; i < LOG; i++){
+            if(up[node][i - 1] != 0)
+                up[node][i] = up[up[node][i - 1]][i - 1];
+        }
+
+        for (int child : tree[node]){
+            if(child != parent){
+                depth[child] = depth[node] + 1;
+                dfs(child, node);
+            }
+        }
     }
 }
