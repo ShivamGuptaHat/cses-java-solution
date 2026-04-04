@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 
-public class StaticRangeSumQueries {
+public class StaticRangeMinimumQueries {
 
     private static final class FastScanner {
         private final InputStream in;
@@ -71,16 +71,18 @@ public class StaticRangeSumQueries {
     static FastScanner in = new FastScanner(System.in);
     static PrintWriter out = new PrintWriter(new BufferedOutputStream(System.out));
     static final long INF = (long)1e18;
+
+    static final int MAX = 1_000_000_005;
     static final int MOD = 1_000_000_007;
     public static void main(String[] args) throws Exception {
         solve();
         out.flush();
     }
 
-    static long[] st;
-    static long[] nums;
-    static int n;
 
+    static int[] st;
+    static int[] nums;
+    static int n;
 
     public static void build(int node, int start, int end){
         if(start == end){
@@ -88,46 +90,50 @@ public class StaticRangeSumQueries {
             return;
         }
 
-//        int mid = start + (end - start) / 2;
         int mid = (start + end) / 2;
         build(2 * node, start, mid);
         build(2 * node + 1, mid + 1, end);
-        st[node] = st[node * 2] + st[node * 2 + 1];
+
+        st[node] = Math.min(st[2 * node], st[2 * node + 1]);
     }
 
-    public static long query(int l, int r){
+    public static int query(int l, int r){
         return query(1, 0, n - 1, l, r);
     }
 
-    public static long query(int node, int start, int end, int l, int r){
-        if(r < start || l > end) return 0;
+    public static int query(int node, int start, int end, int l, int r){
+        if(start > r || end < l){
+            return MAX;
+        }
 
         if(l <= start && end <= r) return st[node];
 
         int mid = (start + end) / 2;
-        long left = query(2 * node, start, mid, l, r);
-        long right = query(2 * node + 1, mid + 1, end, l , r);
-        return left + right;
+        int left = query(2 * node, start, mid, l, r);
+        int right = query(2 * node + 1, mid + 1,  end, l, r);
+
+        return Math.min(left, right);
     }
+
 
     public static void solve() throws Exception{
         n = in.nextInt();
         int q = in.nextInt();
 
-        nums = new long[n];
-        st = new long[4 * n];
+        nums = new int[n];
+        st =  new int[4 * n];
 
         for (int i = 0; i < n; i++){
-            nums[i] = in.nextLong();
+            nums[i] = in.nextInt();
         }
 
         build(1, 0, n - 1);
-
-        while(q-- > 0){
+        while (q-- > 0){
             int l = in.nextInt() - 1;
-            int r  =in.nextInt() - 1;
+            int r = in.nextInt() - 1;
 
             out.println(query(l, r));
         }
+
     }
 }
