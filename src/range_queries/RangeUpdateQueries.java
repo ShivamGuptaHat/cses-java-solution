@@ -107,9 +107,7 @@ public class RangeUpdateQueries {
             }else{
                 nums[start] += lazy[node];
             }
-
             lazy[node] = 0;
-
         }
     }
 
