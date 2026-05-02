@@ -124,7 +124,7 @@ public class Investigation {
                 long nd = distance[u] + v.weight;
 
                 if (nd < distance[v.node]) {
-                    // ✅ overwrite
+                    // ✅ update
                     distance[v.node] = nd;
                     ways[v.node] = ways[u];
                     minEdges[v.node] = minEdges[u] + 1;
