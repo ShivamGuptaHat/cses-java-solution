@@ -137,6 +137,8 @@ public class Investigation {
                     ways[v.node] = (ways[v.node] + ways[u]) % MOD;
                     minEdges[v.node] = Math.min(minEdges[v.node], minEdges[u] + 1);
                     maxEdges[v.node] = Math.max(maxEdges[v.node], maxEdges[u] + 1);
+
+                    // No need to insert 'v' into PQ again because so far adjacent nodes of 'v' are not explored.
                 }
             }
         }
